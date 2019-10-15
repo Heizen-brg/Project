@@ -18,7 +18,7 @@ router.use(bodyParser.urlencoded({ extended: false }))
 /* GET home page. */
 
 router.get('/login', function (req, res, next) {
-  res.sendFile(path.join(__dirname, './index.html'))
+  res.sendFile(path.join(__dirname, '../views/index.html'))
 })
 
 router.post('/login', function (req, res, next) {
@@ -43,10 +43,10 @@ var checkLogin = function (req,res,next) {
   }
   
   }
-  router.get('/home',checkLogin, function (req, res, next) {
+  router.get('/listproduct',checkLogin, function (req, res, next) {
     res.render('home', { title: 'Express', ID: req.session.user });
   });
-router.post('/home',function (req,res,next) { 
+router.post('/listproduct',function (req,res,next) { 
   req.session.destroy(function (err) {
     if (err) {
       return next(err)
