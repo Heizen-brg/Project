@@ -8,7 +8,50 @@
     <title>Document</title>
 </head>
 <body>
-    <button type="button" id="btn">Lay data</button>
+    <button type="button" id="getAll">Get all</button>
+    <button type="button" id="getId">getid</button>
+    <button type="button" id="create">create</button>
+    <button type="button" id="update">update</button>
+    <button type="button" id="delete">delete</button>
 </body>
-    <script></script>
+    <script>
+        var type = window.localStorage.getItem("type");
+        var token = window.localStorage.getItem("token");
+        // api getAll
+         $('#getAll').click(function () {
+            $.ajax({
+                url: '/api/product',
+                type: 'get',
+                headers:{
+                    token:token,
+                    data:type
+                },
+            }).then(function (response) {
+                console.log(response);
+                // window.location.href ='/api/product'
+             }).catch(function (err) {
+                 
+                    console.log('err');
+                })
+        })
+        // api get id
+            $('#getId').click(function () {
+            $.ajax({
+                url: '/api/product',
+                type: 'get',
+            }).then(function (response) {
+                window.location.href ='/getId'
+             }).catch(function (err) {
+                    console.log('err');
+                })
+        })
+       if(type ==2){
+           $("#update").css("display","none");
+       }else if(type == 3){
+           $("#update").css("display","none");
+           $("#getId").css("display","none");
+           $("#create").css("display","none");
+           $("#delete").css("display","none");       
+       }
+    </script>
 </html>

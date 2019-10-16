@@ -1,50 +1,70 @@
-var User = require('../lib/dbconnect');
-//get full api
-function getAllProduct(){
- return User.findAll();
-}
-//get id
-function getIdProduct(id) {
+var User = require("../lib/dbconnect");
+//get full api guest
+function getAllProductGuest() {
   return User.findAll({
-    where:{
-      id:id
+    attributes: ["id","username"],
+  });
+}
+//get full api guest
+function getAllProductAdmin() {
+  return User.findAll();
+}
+//get id guest
+function getIdProductGuest(id) {
+  return User.findAll({
+    attributes:["id","username"],
+    where: {
+      id: id
     }
-  })
+  });
+}
+//get id Admin
+function getIdProductAdmin(id) {
+  return User.findAll({
+    where: {
+      id: id
+    }
+  });
 }
 //create
-function createProduct(id,type,username,password) {
+function createProduct(id, type, username, password) {
   return User.create({
     id: id,
     type: type,
-    username:username,
+    username: username,
     password: password
-  })
+  });
 }
-//update 
+//update
 
-function updateProduct(id,type,username,password){
-  return User.update({
-    type:type,
-    username:username,
-    password:password
-  },{
-    where:{
-      id:id
+function updateProduct(id, type, username, password) {
+  return User.update(
+    {
+      type: type,
+      username: username,
+      password: password
+    },
+    {
+      where: {
+        id: id
+      }
     }
-  })
+  );
 }
-//delete
-function deleteProduct(id){
+//delete guest
+function deleteProduct(id) {
   return User.destroy({
-    where:{
+    where: {
       id: id
     }
-  })
+  });
 }
-module.exports= {
-  getAllProduct,
-  getIdProduct,
+module.exports = {
+  getAllProductGuest,
+  getAllProductAdmin,
+  getIdProductGuest,
+  getIdProductAdmin,
   createProduct,
   updateProduct,
   deleteProduct
-}
+};

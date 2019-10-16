@@ -202,11 +202,13 @@
                 data: {
                     username: $('#username').val(),
                     password: $('#password').val(),
-                }
+                },
+                
             })
                 // console.log(data)
                 .then(function (response) {
-                    window.localStorage.setItem('token',response)
+                    window.localStorage.setItem('token',response.token)
+                    window.localStorage.setItem('type',response.type)
                     window.location.href = '/home'
                 })
                 .catch(function (err) {
