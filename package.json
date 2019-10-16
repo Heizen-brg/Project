@@ -15,6 +15,23 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
-    "nodemon": "^1.19.3"
-  }
+    "mysql2": "^1.7.0",
+    "nodemon": "^1.19.3",
+    "sequelize": "^5.19.6"
+  },
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Heizen-brg/Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Heizen-brg/Project/issues"
+  },
+  "homepage": "https://github.com/Heizen-brg/Project#readme",
+  "description": ""
 }
