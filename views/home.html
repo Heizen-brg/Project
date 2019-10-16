@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <!-- <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
@@ -18,7 +20,7 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
-    ></script> -->
+    ></script>
     <title>Document</title>
   </head>
   <body>
@@ -49,27 +51,49 @@
           token: token,
           data: type
         }
-      }).then(function(data) {
-          console.log(data);
-            //   var div = $("<div></div>");
-            //   for (var i = 0; i < data.length; i++) {
-            //     const element = data[i];
-            //     var template = `<div class="card" style="width: 18rem;">
-            //                             <div class="card-body">
-            //                                 <h5 class="card-title">${element.id}</h5>                                        
-            //                                 <h5 class="card-title">${element.username}</h5>
-            //                             </div>
-            //                         </div>`;
-            //     div.append(template);
-            //   }
-            //   var row = $('<div class= "row"></div>');
-            //   row.append(div);
-            //   $("body").append(row);
-          // window.location.href ='/api/product'
+      })
+        .then(function(data) {
+          if (parseInt(data.type) == 3) {
+            var div = $("<div class='container'></div>");
+            var row = $('<div class= "row"></div>');
+            for (var i = 0; i < data.length; i++) {
+              const element = data.result[i];
+              var template = `<div class="card col-3" style="width: 18rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">id:${element.id}</h5>                                        
+                                            <h5 class="card-title">ten:${element.username}</h5>
+                                        </div>
+                                    </div>`;
+              row.append(template);
+              div.append(row);
+              $("body").append(div);
+            }
+          } else if (parseInt(data.type) == 1 || parseInt(data.type) == 2) {
+            var div = $("<div class='container'></div>");
+            $("div").remove();
+            var row = $('<div class= "row"></div>');
+            for (var i = 0; i < data.result.length; i++) {
+              const element = data.result[i];
+              var template = `<div class="card col-3" style="width: 18rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">id:${element.id}</h5>                                        
+                                            <h5 class="card-title">ten:${element.username}</h5>
+                                            <h5 class="card-title">password:${element.password}</h5>
+                                            <h5 class="card-title">type:${element.type}</h5>
+                                        </div>
+                                    </div>`;
+              row.append(template);
+            }
+            div.append(row);
+            $("body").append(div);
+          }
         })
-        .catch(function(err) {
-          console.log("err");
-        });
+        .catch(function(err) {});
+    });
+    //api get id
+    //api create
+    $("#create").click(function() {
+      window.location.href = "/create";
     });
   </script>
 </html>
