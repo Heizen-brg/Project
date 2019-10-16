@@ -31,7 +31,7 @@ router.put("/", async function(req,res,next){
     var username = req.body.username;
     var password = req.body.password;
     var type = req.body.type;
-   var result =   await productService.updateProduct(id,type,username,password);
+   var result = await productService.updateProduct(id,type,username,password);
     res.json({
         status: "Cap nhat thanh cong"
     })
