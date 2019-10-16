@@ -4,14 +4,19 @@ var router = express.Router();
 var authen = require("./authen.js");
 // getAll
 router.get("/",authen.authen, async function(req,res,next){
-    console.log(req.headers.data);
-    if (req.headers.data == 3) {
+    if (parseInt(req.headers.data) == 3) {
       var result = await productService.getAllProductGuest();
-      res.json(result);
-    } else if (parseInt(req.headers.data) == 1 || parseInt(req.headers.data) == 2) {  
-             var admin = await productService.getAllProductAdmin();
-             res.json(admin);
-           }
+      res.json({
+          result,
+          type: req.headers.data
+      });
+    } else if (parseInt(req.headers.data) == 1 || parseInt(req.headers.data) == 2)  {  
+        var result = await productService.getAllProductAdmin();
+        res.json({
+          result,
+          type: req.headers.data
+        });
+    }
 })
 //getId
 router.get("/:id",authen.authen, async function(req,res,next){
@@ -24,7 +29,7 @@ router.post("/",authen.authen,async function(req,res,next){
     var id = parseInt(Date.now() / 10000);
     var username = req.body.username;
     var password =req.body.password;
-    var type = 3;
+    var type = req.body.type;
     var result = await productService.createProduct(id,type,username,password);
     res.json(result);
 });
