@@ -8,10 +8,10 @@ router.get("/",authen.authen, async function(req,res,next){
     if (req.headers.data == 3) {
       var result = await productService.getAllProductGuest();
       res.json(result);
-    } else if (parseInt(req.headers.data) == 1 || parseInt(req.headers.data) == 2) {  
-             var admin = await productService.getAllProductAdmin();
-             res.json(admin);
-           }
+    } else if (parseInt(req.headers.data) == 1 || parseInt(req.headers.data) == 2)  {  
+        var admin = await productService.getAllProductAdmin();
+        res.json(admin);
+    }
 })
 //getId
 router.get("/:id",authen.authen, async function(req,res,next){
