@@ -200,14 +200,14 @@
                 url: '/login',
                 type: 'post',
                 data: {
-                    username: 'Dinosaur',
-                    password: '0000',
+                    username: $('#username').val(),
+                    password: $('#password').val(),
                 }
             })
                 // console.log(data)
                 .then(function (response) {
-
-                    window.location.href = '/listproduct'
+                    window.localStorage.setItem('token',response)
+                    window.location.href = '/home'
                 })
                 .catch(function (err) {
                     console.log('err');
