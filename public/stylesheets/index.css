@@ -1,0 +1,14 @@
+#myVideo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+  }
+
+  .block {
+      position: absolute;
+      padding-left: 45%;
+      margin-top: 10%;
+  }

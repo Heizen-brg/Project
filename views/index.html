@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../public/stylesheets/index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <title>Document</title>
 
@@ -157,40 +158,44 @@
 </head>
 
 <body>
+    <video autoplay muted loop id="myVideo">
+        <source src="../public/images/Gubat Beach.mp4 " type="video/mp4">
+    </video>
+    <div class="block ">
+        <h2>Login</h2>
 
-    <h2>Login</h2>
+        <button onclick="document.getElementById('id01').style.display='block'"  style="width:auto;">Login</button>
 
-    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+        <div id="id01" class="modal">
 
-    <div id="id01" class="modal">
+            <form class="modal-content animate">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                        title="Close Modal">&times;</span>
+                    <img src="" alt="Avatar" class="avatar">
+                </div>
 
-        <form class="modal-content animate">
-            <div class="imgcontainer">
-                <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                    title="Close Modal">&times;</span>
-                <img src="" alt="Avatar" class="avatar">
-            </div>
+                <div class="container">
+                    <label for="uname"><b>Username</b></label>
+                    <input id="username" type="text" placeholder="Enter Username" name="username" required>
 
-            <div class="container">
-                <label for="uname"><b>Username</b></label>
-                <input id="username" type="text" placeholder="Enter Username" name="username" required>
+                    <label for="psw"><b>Password</b></label>
+                    <input id="password" type="password" placeholder="Enter Password" name="password" required>
 
-                <label for="psw"><b>Password</b></label>
-                <input id="password" type="password" placeholder="Enter Password" name="password" required>
+                    <a id="btn"><button  type="button">Login</button></a>
 
-                <a id="btn"><button type="button">Login</button></a>
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
 
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-            </div>
-
-            <div class="container" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'"
-                    class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
-            </div>
-        </form>
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                        class="cancelbtn">Cancel</button>
+                    <span class="psw">Forgot <a href="#">password?</a></span>
+                </div>
+            </form>
+        </div>
     </div>
     <script>
         $('#btn').click(function () {
@@ -201,12 +206,12 @@
                     username: $('#username').val(),
                     password: $('#password').val(),
                 },
-                
+
             })
                 // console.log(data)
                 .then(function (response) {
-                    window.localStorage.setItem('token',response.token)
-                    window.localStorage.setItem('type',response.type)
+                    window.localStorage.setItem('token', response.token)
+                    window.localStorage.setItem('type', response.type)
                     window.location.href = '/home'
                 })
                 .catch(function (err) {
@@ -224,4 +229,5 @@
 
     </script>
 </body>
+
 </html>
