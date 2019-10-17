@@ -1,0 +1,10 @@
+button.save{
+ display: none;
+}
+.ip-element {
+    display: none;
+    width: 50%;
+}
+.ip-element input {
+   width: 70%;
+}

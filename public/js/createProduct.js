@@ -10,7 +10,7 @@ $("#btn").click(function() {
   })
     // console.log(data)
     .then(function(response) {
-      console.log(response);
+     window.location.href='/home'
     })
     .catch(function(err) {
       console.log("err");
