@@ -1,13 +1,19 @@
 var User = require("../lib/dbconnect");
+
 //get full api guest
-function getAllProductGuest() {
+function getAllProductGuest(i) {
   return User.findAll({
     attributes: ["id","username"],
+    limit: 8,
+    offset: (i-1)*8
   });
 }
 //get full api guest
-function getAllProductAdmin() {
-  return User.findAll();
+function getAllProductAdmin(i) {
+  return User.findAll({
+    limit: 8,
+    offset: (i-1)*8
+  });
 }
 //get id guest
 function getIdProductGuest(id) {
@@ -23,7 +29,7 @@ function getIdProductAdmin(id) {
   return User.findAll({
     where: {
       id: id
-    }
+    },
   });
 }
 //create

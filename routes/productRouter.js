@@ -4,14 +4,16 @@ var router = express.Router();
 var authen = require("./authen.js");
 // getAll
 router.get("/",authen.authen, async function(req,res,next){
+    var i = parseInt(req.headers.id);
+    console.log(req.headers.id);
     if (parseInt(req.headers.data) == 3) {
-      var result = await productService.getAllProductGuest();
+      var result = await productService.getAllProductGuest(i);
       res.json({
           result,
           type: req.headers.data
       });
     } else if (parseInt(req.headers.data) == 1 || parseInt(req.headers.data) == 2)  {  
-        var result = await productService.getAllProductAdmin();
+        var result = await productService.getAllProductAdmin(i);
         res.json({
           result,
           type: req.headers.data

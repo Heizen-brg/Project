@@ -1,5 +1,15 @@
 var type = window.localStorage.getItem("type");
-var token = window.localStorage.getItem("token");
+var token = window.localStorage.getItem("token"); 
+  $('#page').click(function(){
+  // var i = parseInt($(this).text())
+  //  console.log(i)
+  var id = $(this).attr('')
+  $.ajax({
+    url:'/'
+  })
+})
+console.log(i);
+
 if (type == 2) {
   $("#update").css("display", "none");
 } else if (type == 3) {
@@ -11,12 +21,14 @@ if (type == 2) {
 var div = $("<div class='container'></div>");
 var row = $('<div class= "row"></div>');
 // api getAll
+
 $.ajax({
   url: "/api/product",
   type: "get",
   headers: {
     token: token,
-    data: type
+    data: type,
+    id: i
   }
 })
   .then(function(data) {
