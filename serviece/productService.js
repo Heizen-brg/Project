@@ -1,16 +1,35 @@
-var User = require("../lib/dbconnect");
-
+var {User,Sequelize} = require("../lib/dbconnect");
+const Op = Sequelize.Op;
 //get full api guest
 function getAllProductGuest(i) {
+  return User.findAll(
+    {
+      attributes: ["id", "username"]
+    },
+    {
+      where: {
+        type: 3 
+      }
+    },
+    {
+      limit: 8,
+      offset: (i-1)*8
+  }
+  );
+}
+//get full api guest
+function getAllProductAdmin(i) {
   return User.findAll({
-    attributes: ["id","username"],
     limit: 8,
     offset: (i-1)*8
   });
 }
 //get full api guest
-function getAllProductAdmin(i) {
+function getAllProductManager(i) {
   return User.findAll({
+    where: {
+      [Op.or]: [{ type: 2 }, { type: 3 }]
+    },
     limit: 8,
     offset: (i-1)*8
   });
@@ -42,7 +61,6 @@ function createProduct(id, type, username, password) {
   });
 }
 //update
-
 function updateProduct(id, type, username, password) {
   return User.update(
     {
@@ -66,6 +84,7 @@ function deleteProduct(id) {
   });
 }
 module.exports = {
+  getAllProductManager,
   getAllProductGuest,
   getAllProductAdmin,
   getIdProductGuest,

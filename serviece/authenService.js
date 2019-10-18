@@ -1,5 +1,4 @@
-var User = require("../lib/dbconnect");
-const Sequelize = require('sequelize');
+var {User,Sequelize} = require("../lib/dbconnect");
 const Op = Sequelize.Op;
 function check(username,password){
     return User.findAll({

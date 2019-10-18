@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 var fs = require("fs");
-var check = require("../serviece/authorService");
+var check = require("../serviece/authenService");
 //config body-parser
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -34,4 +34,8 @@ router.get("/home", function(req, res, next) {
 router.get("/create", function(req, res, next) {
   res.sendFile(path.join(__dirname, "../views/createProduct.html"));
 });
+//trang sign-in
+router.get("/sign-in",function(req,res,next){
+  res.sendFile(path.join(__dirname, "../views/signIn.html"));
+})
 module.exports = {router};

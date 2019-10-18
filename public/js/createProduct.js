@@ -12,7 +12,4 @@ $("#btn").click(function() {
     .then(function(response) {
      window.location.href='/home'
     })
-    .catch(function(err) {
-      console.log("err");
-    });
 });
