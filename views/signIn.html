@@ -19,19 +19,32 @@
     <div id="id01" class="modal">
         <form class="modal-content animate">
             <div class="container">
-                 <label for="uid"><b>id</b></label>
-                <input id="id" type="text" placeholder="Enter id" name="id" required>
                 <label for="uname"><b>Username</b></label>
                 <input id="username" type="text" placeholder="Enter Username" name="username" required>
                 <label for="psw"><b>Password</b></label>
                 <input id="password" type="password" placeholder="Enter Password" name="password" required>
-                 <label for="utype"><b>Username</b></label>
-                <input id="type" type="text" placeholder="Enter type" name="type" required>
-                <a id="btn"><button type="button">Create</button></a>
+                <a id="btn"><button type="button">SignIn</button></a>
             </div>
         </form>
     </div>
-    <script src="/js/updateProduct.js">
+    <script>
+        $("#btn").click(function() {
+        $.ajax({
+            url: "/api/product/sign-in",
+            type: "post",
+            data: {
+            username: $("#username").val(),
+            password: $("#password").val(),
+            }
+        })
+            // console.log(data)
+            .then(function(response) {
+                alert("Dang ki thanh cong")
+            window.location.href='/login'
+            })
+            .catch(function(err) {
+            });
+        });
     </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 button.save{
  display: none;
+ opacity: 0.5;
 }
 .ip-element {
     display: none;
