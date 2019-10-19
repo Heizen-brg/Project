@@ -2,6 +2,8 @@ var type = window.localStorage.getItem("type");
 var token = window.localStorage.getItem("token");
 var div = $("<div class='container '></div>");
 var row = $('<div class= "row "></div>');
+var ul = $('<ul class="pagination"></ul>');
+var nav = $('<nav aria-label="Page navigation example"></nav>');
   if(type==3){
     $("#create").css("display","none");
   }
@@ -13,10 +15,29 @@ $.ajax({
     token: token,
     data: type
   }
-}).then(function(data) {
-  if (parseInt(data.type) == 1) {
-      for (var i = 0; i < data.result.length; i++) {
-        const element = data.result[i];
+}).then(function(res) {
+  if (parseInt(res.type) == 1) {
+    // paging
+    var valueLenght = res.result.length;
+    var valuePage = parseInt(valueLenght/8)+1;
+    for (var i = 1; i <= valuePage; i++) {
+      var li = `<li class="page-item " ><a class="page-link page"  val='${i}' href="#">${i}</a></li>`;
+      ul.append(li);
+    }
+
+    $(nav).append(ul)
+    $("body").append(nav);
+    $('.page').click(function() {
+      var number = $(this).attr('val');
+
+      $.ajax({
+        url: "/api/product/page/"+number,
+        type: "get",
+        number:number
+      }).then(function(data) {
+       for (var i = 0; i < data.length; i++) {
+        const element = data[i];
+        $(div).html('');
         var template = `<div class="card col-3 element-parent" style="width: 30rem;">
                                         <div class="card-body">
                                               <h5 class="card-title">id:<span class="">${element.id}</span></h5>                                   
@@ -111,6 +132,10 @@ $.ajax({
             });
           });
         }
+    });
+    })
+    // crud
+     
     } else if (parseInt(data.type) == 2) {
         for (var i = 0; i < data.result.length; i++) {
         const element = data.result[i];

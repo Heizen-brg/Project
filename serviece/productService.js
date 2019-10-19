@@ -74,6 +74,15 @@ function deleteProduct(id) {
     }
   });
 }
+//page
+function page(n){
+    return User.findAll(
+    {
+      limit: 8,
+      offset:(n-1)*8
+    }
+  );
+}
 module.exports = {
   getAllProductManager,
   getAllProductGuest,
@@ -82,5 +91,5 @@ module.exports = {
   getIdProductAdmin,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,page
 };

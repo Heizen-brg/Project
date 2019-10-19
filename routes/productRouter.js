@@ -65,4 +65,10 @@ router.post("/sign-in", async function(req, res, next) {
   var result = await productService.createProduct(id, type, username, password);
   res.json(result);
 });
+//paging
+router.get ('/page/:number',async function(req,res,next) {
+  var number = req.params.number;
+  var result = await productService.page(number);
+  res.json(result);
+})
 module.exports = router
