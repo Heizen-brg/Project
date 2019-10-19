@@ -1,4 +1,25 @@
 var type = window.localStorage.getItem("type");
+var token = window.localStorage.getItem("token"); 
+//   $('#page').click(function(){
+//   // var i = parseInt($(this).text())
+//   //  console.log(i)
+//   var id = $(this).attr('')
+//   $.ajax({
+//     url:'/'
+//   })
+// })
+// console.log(i);
+
+if (type == 2) {
+  $("#update").css("display", "none");
+} else if (type == 3) {
+  $("#update").css("display", "none");
+  $("#getId").css("display", "none");
+  $("#create").css("display", "none");
+  $("#delete").css("display", "none");
+}
+var div = $("<div class='container'></div>");
+var row = $('<div class= "row"></div>');
 var token = window.localStorage.getItem("token");
 var div = $("<div class='container '></div>");
 var row = $('<div class= "row "></div>');
@@ -6,12 +27,14 @@ var row = $('<div class= "row "></div>');
     $("#create").css("display","none");
   }
 // api getAll
+
 $.ajax({
   url: "/api/product",
   type: "get",
   headers: {
     token: token,
-    data: type
+    data: type,
+    id: 3
   }
 }).then(function(data) {
   if (parseInt(data.type) == 1) {
