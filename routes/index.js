@@ -11,9 +11,10 @@ router.use(session({
   secret: "cgv@1234",
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 24*60*60*60 }
+  cookie: { maxAge: 24*60*60*3600 }
 })
 );
+var check = require("../serviece/authenService");
 //config body-parser
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -54,5 +55,10 @@ router.post('/home',function (req,res,next) {
       res.redirect("/login")
     }
   })
+})
+module.exports = {router};
+//trang sign-in
+router.get("/sign-in",function(req,res,next){
+  res.sendFile(path.join(__dirname, "../views/signIn.html"));
 })
 module.exports = {router};
