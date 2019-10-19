@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 var fs = require("fs");
-var check = require("../serviece/authorService");
+var check = require("../serviece/authenService");
 //session config
 router.use(session({
   secret: "cgv@1234",
