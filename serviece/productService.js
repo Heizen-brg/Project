@@ -1,7 +1,7 @@
 var {User,Sequelize} = require("../lib/dbconnect");
 const Op = Sequelize.Op;
 //get full api guest
-function getAllProductGuest() {
+function getAllProductGuest(i) {
   return User.findAll(
     {
       attributes: ["id", "username"]
@@ -10,19 +10,28 @@ function getAllProductGuest() {
       where: {
         type: 3 
       }
-    }
+    },
+    {
+      limit: 8,
+      offset: (i-1)*8
+  }
   );
 }
 //get full api guest
-function getAllProductAdmin() {
-  return User.findAll();
+function getAllProductAdmin(i) {
+  return User.findAll({
+    limit: 8,
+    offset: (i-1)*8
+  });
 }
 //get full api guest
-function getAllProductManager() {
+function getAllProductManager(i) {
   return User.findAll({
     where: {
       [Op.or]: [{ type: 2 }, { type: 3 }]
-    }
+    },
+    limit: 8,
+    offset: (i-1)*8
   });
 }
 //get id guest
@@ -39,7 +48,7 @@ function getIdProductAdmin(id) {
   return User.findAll({
     where: {
       id: id
-    }
+    },
   });
 }
 //create

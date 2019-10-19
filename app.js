@@ -10,13 +10,7 @@ var bodyParser = require("body-parser")
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 var productRouter = require('./routes/productRouter')
-app.use(session({
-    secret: "cgv@1234",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 6000 }
-  })
-);
+
 //config body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
