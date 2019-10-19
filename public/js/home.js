@@ -109,3 +109,18 @@ $("#create").click(function() {
   window.location.href = "/create";
 });
 //api update
+
+//logout
+$('#logout').click(function () {
+  $.ajax({
+      url: '/home',
+      type: 'post',
+  })
+  .then(function (response) {
+    window.location.href = '/login'
+})
+.catch(function (err) {
+    console.log('err');
+
+})
+})
