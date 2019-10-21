@@ -3,23 +3,28 @@ var express = require("express");
 var router = express.Router();
 var authen = require("./authen.js");
 // getAll
-router.get("/",authen.authen, async function(req,res,next){
-    var i = parseInt(req.headers.id);
-    console.log(req.headers.id);
+router.get("/getAll/:page",authen.authen, async function(req,res,next){
+    var page = parseInt(req.params.page)
+    console.log(page);
     if (parseInt(req.headers.data) == 3) {
-      var result = await productService.getAllProductGuest(i);
+      var result = await productService.getAllProductGuest(page);
+      var pagin = await productService.count();
+      var pageSize = 8;
+      var numPage = Math.ceil(pagin/pageSize)
+      console.log(numPage)
       res.json({
           result,
-          type: req.headers.data
+          type: req.headers.data,
+          numPage
       });
     } else if (parseInt(req.headers.data) == 1 || parseInt(req.headers.data) == 2)  {  
-        var result = await productService.getAllProductAdmin(i);
+        var result = await productService.getAllProductAdmin(page);
         res.json({
           result,
           type: req.headers.data
         });
     }else if(parseInt(req.headers.data) == 2){
-         var result = await productService.getAllProductManager(i);
+         var result = await productService.getAllProductManager(page);
          res.json({
            result,
            type: req.headers.data

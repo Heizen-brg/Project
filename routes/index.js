@@ -39,7 +39,8 @@ router.post("/login", async function(req, res, next) {
 //trang home
 router.get("/home", function(req, res, next) {
  req.session.user;
-  res.render(path.join('home'),{ID:req.session.user[0].username });
+  // res.render(path.join('home'),{ID:req.session.user[0].username });
+  res.sendFile(path.join(__dirname,'../views/home.html'))
 });
 //trang create product
 router.get("/create", function(req, res, next) {
