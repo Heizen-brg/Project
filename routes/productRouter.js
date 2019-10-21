@@ -28,7 +28,7 @@ router.get("/",authen.authen, async function(req,res,next){
 })
 //getId
 router.get("/:id",authen.authen, async function(req,res,next){
-    var id = req.body.id;
+    var id = req.params.id;
     var result = await productService.getIdProduct(id);
     res.json(result);
 });
