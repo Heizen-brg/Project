@@ -47,8 +47,9 @@
             })
                 // console.log(data)
                 .then(function (response) {
-                    window.localStorage.setItem('token', response.token)
-                    window.localStorage.setItem('type', response.type)
+                    window.localStorage.setItem('token', response.token);
+                    window.localStorage.setItem('type', response.type);
+                    console.log('Day la ajax cua index');
                     window.location.href = '/home'
                 })
                 .catch(function (err) {

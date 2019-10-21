@@ -24,11 +24,11 @@ router.post("/login", async function(req, res, next) {
       type:data[0].type
     });
   }
-  return next({ err: "acc va pass khong dung" });
 });
 //trang home
 router.get("/home", function(req, res, next) {
   res.sendFile(path.join(__dirname, "../views/home.html"));
+  console.log("tes");
 });
 //trang create product
 router.get("/create", function(req, res, next) {

@@ -11,7 +11,7 @@ router.get('/listproduct', function (req, res, next) {
 router.post('/listproduct',function (req,res,next) { 
 req.session.destroy(function (err) {
   if (err) {
-    return next(err)
+
   }else {
     res.redirect("/login")
   }
