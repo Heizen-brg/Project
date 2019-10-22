@@ -4,33 +4,27 @@ var router = express.Router();
 var authen = require("./authen.js");
 // getAll
 router.get("/",authen.authen, async function(req,res,next){
-    var i = parseInt(req.headers.id);
-    console.log(req.headers.id);
-    if (parseInt(req.headers.data) == 3) {
-      var result = await productService.getAllProductGuest(i);
-      res.json({
-          result,
-          type: req.headers.data
-      });
-    } else if (parseInt(req.headers.data) == 1 || parseInt(req.headers.data) == 2)  {  
-        var result = await productService.getAllProductAdmin(i);
-        res.json({
-          result,
-          type: req.headers.data
-        });
-    }else if(parseInt(req.headers.data) == 2){
-         var result = await productService.getAllProductManager(i);
-         res.json({
-           result,
-           type: req.headers.data
-         });
-    }
+    var result = await productService.getAll();
+    res.json({
+      result,
+      type: req.headers.data
+    });
 })
 //getId
-router.get("/:id",authen.authen, async function(req,res,next){
-    var id = req.params.id;
-    var result = await productService.getIdProduct(id);
-    res.json(result);
+router.get("/:username",authen.authen, async function(req,res,next){
+  if (req.headers.type == 1) {
+      var username = req.params.username;
+      var result = await productService.getUserProductAdmin(username);
+      res.json(result);
+  } else if (req.headers.type == 2) {
+      var username = req.params.username;
+      var result = await productService.getUserProductManger(username);
+      res.json(result);
+  } else if (req.headers.type == 3) {
+      var username = req.params.username;
+      var result = await productService.getUserProductGuest(username);
+      res.json(result);
+  }
 });
 //get create
 router.post("/",authen.authen,async function(req,res,next){
@@ -48,7 +42,7 @@ router.put("/",authen.authen, async function(req,res,next){
     var password = req.body.password;
     var type = req.body.type;
    await productService.updateProduct(id,type,username,password);
-  var result = await productService.getIdProductAdmin(id);
+  var result = await productService.updateProduct(id);
     res.json({result});
 })
 router.delete("/:id",authen.authen, async function(req, res, next) {
@@ -67,10 +61,5 @@ router.post("/sign-in", async function(req, res, next) {
   var result = await productService.createProduct(id, type, username, password);
   res.json(result);
 });
-//paging
-router.get ('/page/:number',async function(req,res,next) {
-  var number = req.params.number;
-  var result = await productService.page(number);
-  res.json(result);
-})
+
 module.exports = router

@@ -37,8 +37,10 @@ router.post("/login", async function(req, res, next) {
 });
 //trang home
 router.get("/home", function(req, res, next) {
- req.session.user;
-  res.render(path.join('home'),{ID:req.session.user[0].username });
+ req.session.user={
+   username: req.body.username
+ };
+  res.render(path.join('home'),{ID:req.session.user.username });
 });
 //trang create product
 router.get("/create", function(req, res, next) {

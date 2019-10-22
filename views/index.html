@@ -1,80 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/stylesheets/index.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/stylesheets/index.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <video autoplay muted loop id="myVideo">
-        <source src="/images/Gubat Beach.mp4 " type="video/mp4">
+      <source src="/images/Futuristic - 896.mp4 " type="video/mp4" />
     </video>
     <div class="block ">
-        <button onclick="document.getElementById('id01').style.display='block'"  style="width:auto;">Login</button>
-      <a href="/sign-in">  <button  style="width:auto;">Sign In</button></a>
-        <div id="id01" class="modal">
-            <form class="modal-content animate">
-                <div class="imgcontainer">
-                    <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                        title="Close Modal">&times;</span>
-                </div>
+      <button
+        onclick="document.getElementById('id01').style.display='block'"
+        style="width:auto;"
+      >
+        Login
+      </button>
+      <a href="/sign-in"> <button style="width:auto;">Sign In</button></a>
+      <div id="id01" class="modal">
+        <form class="modal-content animate">
+          <div class="imgcontainer">
+            <span
+              onclick="document.getElementById('id01').style.display='none'"
+              class="close"
+              title="Close Modal"
+              >&times;</span
+            >
+          </div>
 
-                <div class="container">
-                    <label for="uname"><b>Username</b></label>
-                    <input id="username" type="text" placeholder="Enter Username" name="username" required>
+          <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input
+              id="username"
+              type="text"
+              placeholder="Enter Username"
+              name="username"
+              required
+            />
+            <p id="userTxt" style="color:red"></p>
+            <label for="psw"><b>Password</b></label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+              required
+            />
+            <p id="passTxt" style="color:red"></p>
+            <a id="btn"><button type="button">Login</button></a>
+          </div>
 
-                    <label for="psw"><b>Password</b></label>
-                    <input id="password" type="password" placeholder="Enter Password" name="password" required>
-                    <a id="btn"><button  type="button">Login</button></a>
-                </div>
-
-                <div class="container" style="background-color:transparent">
-                    <button type="button" onclick="document.getElementById('id01').style.display='none'"
-                        class="cancelbtn">Cancel</button>
-                    <span class="psw">Forgot <a class="p" href="#">password?</a></span>
-                </div>
-            </form>
-        </div>
+          <div class="container" style="background-color:transparent">
+            <button
+              type="button"
+              onclick="document.getElementById('id01').style.display='none'"
+              class="cancelbtn"
+            >
+              Cancel
+            </button>
+            <span class="psw">Forgot <a class="p" href="#">password?</a></span>
+          </div>
+        </form>
+      </div>
     </div>
     <script>
-
-        
-        $('#btn').click(function () {
-            $.ajax({
-                url: '/login',
-                type: 'post',
-                data: {
-                    username: $('#username').val(),
-                    password: $('#password').val(),
-                },
-
-            })
-                // console.log(data)
-                .then(function (response) {
-                    window.localStorage.setItem('token', response.token);
-                    window.localStorage.setItem('type', response.type);
-                    console.log('Day la ajax cua index');
-                    window.location.href = '/home'
-                })
-                .catch(function (err) {
-                    console.log('err');
-
-                })
-        })
-        var modal = document.getElementById('id01');
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+      $("#btn").click(function() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if (username == "") {
+          $("#userTxt").html("ban chua dien ten");
+        }else if(password==""){
+          $("#passTxt").html("ban chua dien mat khau");
+        }else {
+          $.ajax({
+            url: "/login",
+            type: "post",
+            data: {
+              username: $("#username").val(),
+              password: $("#password").val()
             }
+          })
+            .then(function(response) {
+              window.localStorage.setItem("token", response.token);
+              window.localStorage.setItem("type", response.type);
+              console.log("Day la ajax cua index");
+              window.location.href = "/home";
+            })
+            .catch(function(err) {
+              console.log("err");
+            });
         }
-
+      });
+      var modal = document.getElementById("id01");
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
     </script>
-</body>
-
+  </body>
 </html>
