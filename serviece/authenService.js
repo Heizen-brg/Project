@@ -1,9 +1,9 @@
 var {User,Sequelize} = require("../lib/dbconnect");
 const Op = Sequelize.Op;
-function check(username,password){
+function check(email,password){
     return User.findAll({
       where: {
-        [Op.and]: [{ username: username }, { password: password }]
+        [Op.and]: [{ email: email }, { password: password }]
       }
     });
 }

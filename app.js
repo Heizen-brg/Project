@@ -13,9 +13,9 @@ var productRouter = require('./routes/productRouter');
 var pageRouter = require('./page/pageRouter')
 app.use(session({
     secret: "cgv@1234",
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 6000 }
+    cookie: { maxAge: 60*60*24*1000 }
   })
 );
 

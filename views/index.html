@@ -14,52 +14,26 @@
       <source src="/images/Futuristic - 896.mp4 " type="video/mp4" />
     </video>
     <div class="block ">
-      <button
-        onclick="document.getElementById('id01').style.display='block'"
-        style="width:auto;"
-      >
+      <button onclick="document.getElementById('id01').style.display='block'"style="width:auto;">
         Login
       </button>
       <a href="/sign-in"> <button style="width:auto;">Sign In</button></a>
       <div id="id01" class="modal">
         <form class="modal-content animate">
           <div class="imgcontainer">
-            <span
-              onclick="document.getElementById('id01').style.display='none'"
-              class="close"
-              title="Close Modal"
-              >&times;</span
-            >
+            <span onclick="document.getElementById('id01').style.display='none'"class="close"title="Close Modal">&times;</span >
           </div>
-
           <div class="container">
-            <label for="uname"><b>Username</b></label>
-            <input
-              id="username"
-              type="text"
-              placeholder="Enter Username"
-              name="username"
-              required
-            />
-            <p id="userTxt" style="color:red"></p>
+             <label for="email"><b>Email</b></label>
+            <input id="email"type="text" placeholder="Enter Email" name="email" required />
+            <p id="emailTxt" style="color:red"></p>
             <label for="psw"><b>Password</b></label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Enter Password"
-              name="password"
-              required
-            />
+            <input id="password"type="password" placeholder="Enter Password" name="password" required />
             <p id="passTxt" style="color:red"></p>
             <a id="btn"><button type="button">Login</button></a>
           </div>
-
           <div class="container" style="background-color:transparent">
-            <button
-              type="button"
-              onclick="document.getElementById('id01').style.display='none'"
-              class="cancelbtn"
-            >
+            <button type="button" onclick="document.getElementById('id01').style.display='none'"  class="cancelbtn" >
               Cancel
             </button>
             <span class="psw">Forgot <a class="p" href="#">password?</a></span>
@@ -69,25 +43,25 @@
     </div>
     <script>
       $("#btn").click(function() {
-        var username = $("#username").val();
         var password = $("#password").val();
-        if (username == "") {
-          $("#userTxt").html("ban chua dien ten");
-        }else if(password==""){
-          $("#passTxt").html("ban chua dien mat khau");
-        }else {
+        var email = $("#email").val();
+        if (password == "") {
+          $("#passTxt").html("Vui lòng nhập mật khẩu");
+          $("#password").css("border-color","red");
+        }
+        if (email == "") {
+          $("#emailTxt").html("Vui lòng nhập email");
+          $("#email").css("border-color","red");
+        } else {
           $.ajax({
             url: "/login",
             type: "post",
             data: {
-              username: $("#username").val(),
-              password: $("#password").val()
+              password: $("#password").val(),
+              email: $("#email").val()
             }
-          })
-            .then(function(response) {
+          }).then(function(response) {
               window.localStorage.setItem("token", response.token);
-              window.localStorage.setItem("type", response.type);
-              console.log("Day la ajax cua index");
               window.location.href = "/home";
             })
             .catch(function(err) {

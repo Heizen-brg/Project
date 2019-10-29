@@ -6,6 +6,9 @@ const session = require("express-session");
 const jwt = require("jsonwebtoken");
 var fs = require("fs");
 var check = require("../serviece/authenService");
+var cookieParser = require("cookie-parser");
+var pageService = require("../serviece/pageService")
+var productService= require("../serviece/productService")
 //session config
 router.use(session({
   secret: "cgv@1234",
@@ -24,23 +27,22 @@ router.get("/login", function(req, res, next) {
 });
 //Tao token login
 router.post("/login", async function(req, res, next) {
-  var data = await check.check(req.body.username, req.body.password);
+  var data = await check.check(req.body.email, req.body.password);
   if (data.length>0) {
     var privateKey = fs.readFileSync(path.join(__dirname, "../key.pem"));
-    var token = jwt.sign({},privateKey, { algorithm: "RS256" });
-    req.session.user = data;
+    var token = jwt.sign({type:data[0].type},privateKey, { algorithm: "RS256" });
+    req.session.user = data[0].username;
     return res.json({
-      token: token,
-      type:data[0].type
+      token: token
     });
   }
 });
 //trang home
-router.get("/home", function(req, res, next) {
- req.session.user={
-   username: req.body.username
- };
-  res.render(path.join('home'),{ID:req.session.user.username });
+router.get("/home", async function(req, res, next) {
+  var page = await pageService.pageAllAdmin(1);
+  var listProduct = await productService.getAll();
+  var numberPage = parseInt(listProduct.length/6)+1;
+  res.render("../views/home.ejs", { IDName: req.session.user,page:page,numberPage:numberPage});
 });
 //trang create product
 router.get("/create", function(req, res, next) {
@@ -57,7 +59,6 @@ router.post('/home',function (req,res,next) {
     }
   })
 })
-module.exports = {router};
 //trang sign-in
 router.get("/sign-in",function(req,res,next){
   res.sendFile(path.join(__dirname, "../views/signIn.html"));

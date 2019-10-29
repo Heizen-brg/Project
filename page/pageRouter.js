@@ -2,19 +2,21 @@ var express = require("express");
 var router = express.Router();
 var authen = require("../routes/authen");
 var pageService = require("../serviece/pageService");
-router.get("/page/:number", async function(req, res, next) {
-  if (req.headers.data == 1) {
+var productService = require("../serviece/productService")
+router.get("/page/:number",authen.authen, async function(req, res, next) {
+  var listProductItem = await productService.getAll();
+  if (res.locals.type== 1) {
     var numberPage = parseInt(req.params.number);
     var result = await pageService.pageAllAdmin(numberPage);
-    res.json({ result });
-  } else if (req.headers.data == 2) {
+    res.json({result,listProductItem})
+  } else if (res.locals.type == 2) {
     var numberPage = parseInt(req.params.number);
     var result = await pageService.pageAllManager(numberPage);
-    res.json({ result });
-  } else if (req.headers.data== 3) {
+    res.json({ result, listProductItem });
+  } else if (res.locals.type== 3) {
     var numberPage = parseInt(req.params.number);
     var result = await pageService.pageAlltGuest(numberPage);
-    res.json({ result});
+    res.json({ result, listProductItem });
   }
 });
 module.exports = router;

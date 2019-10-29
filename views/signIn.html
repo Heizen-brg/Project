@@ -23,6 +23,8 @@
                 <input id="username" type="text" placeholder="Enter Username" name="username" required>
                 <label for="psw"><b>Password</b></label>
                 <input id="password" type="password" placeholder="Enter Password" name="password" required>
+                 <label for="email"><b>Email</b></label>
+                <input id="email" type="text" placeholder="Enter Email" name="email" required>
                 <a id="btn"><button type="button">SignIn</button></a>
             </div>
         </form>
@@ -35,6 +37,7 @@
             data: {
             username: $("#username").val(),
             password: $("#password").val(),
+            email: $("#email").val(),
             }
         })
             // console.log(data)

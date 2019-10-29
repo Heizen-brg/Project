@@ -4,8 +4,9 @@ const Op = Sequelize.Op;
 function pageAllAdmin(id) {
   return User.findAll(
     {
-      limit:8,
-      offset:(parseInt(id)-1)*8
+      limit:6,
+      offset:(parseInt(id)-1)*6,
+      raw:true
     }
   );
 }
@@ -16,9 +17,9 @@ function pageAlltGuest(id) {
       where:{
         type:3
       },
-      attributes: ["id", "username"],
-      limit: 8,
-      offset: (parseInt(id) - 1) * 8
+      attributes: ["id", "username","email"],
+      limit: 6,
+      offset: (parseInt(id) - 1) * 6
     },
 
   );
@@ -29,8 +30,8 @@ function pageAllManager(id) {
     where: {
       [Op.and]: [{ type: 3 }, { type: 2 }]
     },
-    limit: 8,
-    offset: (parseInt(id) - 1) * 8
+    limit: 6,
+    offset: (parseInt(id) - 1) * 6
   });
 }
 module.exports = { pageAllAdmin,pageAllManager,pageAlltGuest };

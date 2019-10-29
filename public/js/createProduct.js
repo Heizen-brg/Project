@@ -6,6 +6,7 @@ $("#btn").click(function() {
     data: {
       username: $("#username").val(),
       password: $("#password").val(),
+      email: $("#email").val(),
       type: parseInt($("#type").val())
     }
   })
