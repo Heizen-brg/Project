@@ -8,15 +8,16 @@ router.get("/",authen.authen,async function(req,res,next){
 });
 //get username
 router.get("/:username",authen.authen, async function(req,res,next){
-  if (req.headers.type == 1) {
+  console.log(req.user);
+  if (req.user.type == 1) {
       var username = req.params.username;
       var result = await productService.getUserProductAdmin(username);
       res.json(result);
-  } else if (req.headers.type == 2) {
+  } else if (req.user.type == 2) {
       var username = req.params.username;
       var result = await productService.getUserProductManger(username);
       res.json(result);
-  } else if (req.headers.type == 3) {
+  } else if (req.user.type == 3) {
       var username = req.params.username;
       var result = await productService.getUserProductGuest(username);
       res.json(result);

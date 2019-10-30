@@ -11,6 +11,9 @@ const session = require("express-session");
 const jwt = require("jsonwebtoken");
 var productRouter = require('./routes/productRouter');
 var pageRouter = require('./page/pageRouter')
+const passport    = require('passport');
+require('./routes/passport');
+
 app.use(session({
     secret: "cgv@1234",
     resave: true,
@@ -30,10 +33,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', indexRouter.router);
+app.use('/',indexRouter.router);
 app.use('/users', usersRouter);
 //RESTful API produduct
-app.use('/api/product',productRouter)
+app.use('/api/product',passport.authenticate('jwt', {session: false}),productRouter)
 app.use("/", pageRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

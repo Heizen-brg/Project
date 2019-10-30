@@ -9,6 +9,7 @@ var check = require("../serviece/authenService");
 var cookieParser = require("cookie-parser");
 var pageService = require("../serviece/pageService")
 var productService= require("../serviece/productService")
+const passport = require('passport');
 //session config
 router.use(session({
   secret: "cgv@1234",
@@ -17,6 +18,8 @@ router.use(session({
   cookie: { maxAge: 24*60*60*3600 }
 })
 );
+
+router.use(cookieParser())
 var check = require("../serviece/authenService");
 //config body-parser
 router.use(bodyParser.json());
@@ -26,19 +29,50 @@ router.get("/login", function(req, res, next) {
   res.sendFile(path.join(__dirname, "../views/index.html"));
 });
 //Tao token login
-router.post("/login", async function(req, res, next) {
-  var data = await check.check(req.body.email, req.body.password);
-  if (data.length>0) {
-    var privateKey = fs.readFileSync(path.join(__dirname, "../key.pem"));
-    var token = jwt.sign({type:data[0].type},privateKey, { algorithm: "RS256" });
-    req.session.user = data[0].username;
-    return res.json({
-      token: token
-    });
-  }
+// router.post("/login", async function(req, res, next) {
+//   var data = await check.check(req.body.email, req.body.password);
+//   if (data.length>0) {
+//     var privateKey = fs.readFileSync(path.join(__dirname, "../key.pem"));
+//     var token = jwt.sign({type:data[0].type},privateKey, { algorithm: "RS256" });
+//     req.session.user = data[0].username;
+//     return res.json({
+//       token: token
+//     });
+//   }
+// });
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', {session: false}, (err, user, info) => {
+      console.log(err);
+      if (err || !user) {
+          return res.status(400).json({
+              message: info ? info.message : 'Login failed',
+              user   : user
+          });
+        }
+      req.login(user, {session: false}, (err) => {
+          if (err) {
+              res.send(err);
+          }
+          console.log('================ ', user)
+          const token = jwt.sign(user ,'your_jwt_secret');
+          return res.json({user, token});
+      });
+  })
+  (req, res);
 });
+
 //trang home
-router.get("/home", async function(req, res, next) {
+router.get("/home", function(req, res, next){
+  jwt.verify(req.cookies.token, 'your_jwt_secret', function(err, decoded) {
+    if(!err){
+      next()
+    }else{
+     res.redirect('/login')
+    }
+  });
+  
+  
+}, async function(req, res, next) {
   var page = await pageService.pageAllAdmin(1);
   var listProduct = await productService.getAll();
   var numberPage = parseInt(listProduct.length/6)+1;
