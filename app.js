@@ -9,7 +9,15 @@ var app = express();
 var bodyParser = require("body-parser")
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
-var productRouter = require('./routes/productRouter')
+var productRouter = require('./routes/productRouter');
+var pageRouter = require('./page/pageRouter')
+app.use(session({
+    secret: "cgv@1234",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 60*60*24*1000 }
+  })
+);
 
 //config body-parser
 app.use(bodyParser.json());
@@ -26,11 +34,11 @@ app.use('/', indexRouter.router);
 app.use('/users', usersRouter);
 //RESTful API produduct
 app.use('/api/product',productRouter)
+app.use("/", pageRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

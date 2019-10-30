@@ -8,10 +8,17 @@ router.get('/home', function (req, res, next) {
       username : req.body.username,
       password : req.body.password,
     }
-  res.render('header', { title: 'Express', ID: req.session.user });
+  res.render('header', { title: 'Express', ID: req.session.user.username });
 });
+///logout button
+router.post('/listproduct',function (req,res,next) { 
+req.session.destroy(function (err) {
+  if (err) {
 
-
-
+  }else {
+    res.redirect("/login")
+  }
+  })
+})
 
 module.exports = router;

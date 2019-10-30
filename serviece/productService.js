@@ -1,80 +1,68 @@
 var {User,Sequelize} = require("../lib/dbconnect");
 const Op = Sequelize.Op;
-//get full api guest
-function getAllProductGuest(page) {
-  return User.findAll(
-    {
-      attributes: ["id", "username"]
-    },
-    {
-      where: {
-        type: 3 
-      }
-    },
-    {
-      limit: 8,
-      offset: (page-1)*8
-  }
-  );
-}
-function count(){
-  return User.count();
-}
-//get full api guest
-function getAllProductAdmin(page) {
-  return User.findAll({
-    limit: 8,
-    offset: (page-1)*8
-  });
-}
-//get full api guest
-function getAllProductManager(page) {
-  return User.findAll({
-    where: {
-      [Op.or]: [{ type: 2 }, { type: 3 }]
-    },
-    limit: 8,
-    offset: (page-1)*8
-  });
+
+//get ful
+function getAll() {
+  return User.findAll({ raw: true });
 }
 //get id guest
-function getIdProductGuest(id) {
+function getUserProductGuest(username) {
   return User.findAll({
-    attributes:["id","username"],
+    attributes: ["id", "username"],
     where: {
-      id: id
-    }
+      username: username,
+      type: 3
+    },
+    raw: true
   });
 }
 //get id Admin
-function getIdProductAdmin(id) {
+function getUserProductAdmin(username) {
   return User.findAll({
     where: {
-      id: id
+      username: username
     },
+    raw: true
+  });
+}
+function getUserProductManger(username) {
+  return User.findAll({
+    where: {
+      username: username,
+      [Op.and]: [{ type: 3 }, { type: 2 }]
+    },
+    raw: true
   });
 }
 //create
-function createProduct(id, type, username, password) {
-  return User.create({
-    id: id,
-    type: type,
-    username: username,
-    password: password
-  });
+function createProduct(id, type, username,email, password) {
+  return User.create(
+    {
+      id: id,
+      type: type,
+      username: username,
+      email: email,
+      password: password
+    },
+    {
+      raw: true
+    }
+  );
 }
 //update
-function updateProduct(id, type, username, password) {
+function updateProduct(id, type, username, password,email) {
   return User.update(
     {
       type: type,
       username: username,
-      password: password
+      password: password,
+      email:email
     },
     {
       where: {
         id: id
-      }
+      },
+      raw: true
     }
   );
 }
@@ -83,17 +71,16 @@ function deleteProduct(id) {
   return User.destroy({
     where: {
       id: id
-    }
+    },
+    raw: true
   });
 }
 module.exports = {
-  getAllProductManager,
-  getAllProductGuest,
-  getAllProductAdmin,
-  getIdProductGuest,
-  getIdProductAdmin,
+  getAll,
+  getUserProductGuest,
+  getUserProductAdmin,
   createProduct,
   updateProduct,
   deleteProduct,
-  count
+  getUserProductManger
 };

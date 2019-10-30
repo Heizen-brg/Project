@@ -1,49 +1,136 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-    <title>Document</title>
-    <link rel="stylesheet" href="/stylesheets/home.css">
-  </head>
-  <body>
-      <video autoplay muted loop id="myVideo">
-          <source src="/images/Ceiling - 877.mp4" type="video/mp4">
-      </video>
-      <nav class="navbar navbar-dark bg-dark d-flex justify-content-end m-2">
-        <form class="form-inline">
-            <h1 class="t ">Hi, sir <%= ID%></h1>
-        <input class="form-control mr-sm-2" type="search" placeholder="Search Id" aria-label="Search">
-        <button class="btn btn-outline-success mr-2 my-sm-0" type="submit">Search</button>
-          <button class="btn btn-outline-success mr-2 my-sm-0" id="create" type="button">create</button>
-        <button class="btn btn-outline-success mr-2 my-sm-0" id="logout" type="button">Logout</button>
-      </form>
-    </nav>
-    <ul class="pagination">
-      <li><a href="#" class="page" val="1">1</a></li>
-      <li><a href="#" class="page" val="2">2</a></li>
-      <li><a href="#" class="page" val="3">3</a></li>
-      <li><a href="#" class="page" val="4">4</a></li>
-    </ul>
-  </body>
-  <script src="/js/home.js"></script>
-</html> -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous"
+  />
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"
+  ></script>
+  <script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"
+  ></script>
+  <title>Document</title>
+  <link rel="stylesheet" href="/stylesheets/home.css">
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark d-flex justify-content-end m-2">
+    <form class="form-inline">
+      <h1 class="t">Hi, sir <%= IDName%></h1>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search User" id="ipSearch" aria-label="Search">
+      <button class="btn btn-outline-success mr-2 my-sm-0" id="btnSerach" type="button">Search</button>
+      <button class="btn btn-outline-success mr-2 my-sm-0" id="back" type="button">Back</button>
+      <button class="btn btn-outline-success mr-2 my-sm-0" id="create" type="button">Add New</button>
+      <button class="btn btn-outline-success mr-2 my-sm-0" id="logout" type="button">Logout</button>
+    </form>
+  </nav>
+  <div id="listProduct">
+    <div class="container">
+        <table width="100%" id="tableContainer">
+            <tr class="tdListProduct">
+              <td class="tdListProduct">
+                <div class="row">
+                  <%for(var i = 0;i<page.length;i++){%>
+                  <div class="card col-6 col-lg-4 element-parent" >
+                  <div class="card-body cardContainer">
+                    <table>
+                      <!-- id -->
+                      <tr>
+                        <td>
+                          <h5 class="card-title">ID:</h5> 
+                        </td>
+                        <td>
+                          <h5 class="card-title"><span class=""><%= page[i].id%></span></h5> 
+                        </td>
+                      </tr>
+                      <!-- username -->
+                      <tr>
+                          <td>
+                            <h5 class="card-title">Name:</h5> 
+                          </td>
+                          <td>
+                            <h5 class="card-title"><span class="elementProduct"><%= page[i].username %></span>
+                              <span class="ip-element">
+                                <input type="text" class="ip-element-username">
+                              </span>
+                            </h5>
+                          </td>
+                        </tr>
+                        <!-- password -->
+                        <tr>
+                          <td>
+                            <h5 class="card-title">Password:</h5> 
+                          </td>
+                          <td>
+                            <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].password %></span>
+                              <span class="ip-element">
+                                <input type="text" class="ip-element-password">
+                              </span>
+                            </h5>
+                          </td>
+                        </tr>
+                        <!-- email -->
+                        <tr>
+                          <td>
+                            <h5 class="card-title">Email:</h5> 
+                          </td>
+                          <td>
+                          <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].email %></span>
+                              <span class="ip-element">
+                                <input type="text" class="ip-element-email">
+                              </span>
+                            </h5>
+                          </td>
+                        </tr>
+                        <!-- type -->
+                        <tr>
+                          <td>
+                            <h5 class="card-title">Type:</h5> 
+                          </td>
+                          <td>
+                          <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].type %></span>
+                              <span class="ip-element">
+                                <input type="text" class="ip-element-type">
+                              </span>
+                            </h5> 
+                          </td>
+                        </tr>
+                    </table>
+                    <button class="btn btn-warning my-2 my-sm-0 edit" type="button">Edit</button>
+                    <button class="btn btn-danger my-2 my-sm-0 save" type="button">Save</button>
+                    <button class="btn btn-danger my-2 my-sm-0 delete" type="button">Delete</button>
+                  </div>                         
+                </div>
+                <%} %>
+              </div>
+            </td>
+          </tr>
+          <tr class="trButtonProduct">
+            <td class="tdButtonProduct">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <%for(var i = 1;i<=numberPage;i++){%>
+                    <li class="page-item" val="<%=i%>"><a class="page-link" href="#"><%=i%></a></li>
+                  <%}%>
+                </ul>
+              </nav>
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</body>
+<script src="/js/home.js"></script>
+</html>

@@ -1,11 +1,3 @@
-#myVideo {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    background-size: cover;
-  }
 
 button.save{
  display: none;
@@ -16,7 +8,7 @@ button.save{
     width: 50%;
 }
 .ip-element input {
-   width: 70%;
+   width: auto;
 }
 
 .navbar{
@@ -25,4 +17,10 @@ button.save{
 .t{
     color: cyan;
     margin-right: 500px;;
+}
+#back{
+    display: none;
+}
+.cardContainer{
+    width:auto;
 }

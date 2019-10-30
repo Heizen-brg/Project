@@ -1,3 +1,4 @@
+
 $("#btn").click(function() {
   $.ajax({
     url: "/api/product",
@@ -5,11 +6,12 @@ $("#btn").click(function() {
     data: {
       username: $("#username").val(),
       password: $("#password").val(),
-      type: $("#type").val()
+      email: $("#email").val(),
+      type: parseInt($("#type").val())
     }
   })
     // console.log(data)
     .then(function(response) {
-     window.location.href='/home'
-    })
+      window.location.href = "/home";
+    });
 });
