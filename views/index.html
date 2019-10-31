@@ -81,7 +81,9 @@ function createCookie(name, value, days) {
               window.location.href = "/home";
             })
             .catch(function(err) {
-              console.log("err");
+              $("#emailTxt").html(""+ err.responseJSON.message);
+              $("#password").val('');
+              $("#email").val('');
             });
         }
       });
