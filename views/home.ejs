@@ -36,100 +36,88 @@
       <button class="btn btn-outline-success mr-2 my-sm-0" id="logout" type="button">Logout</button>
     </form>
   </nav>
-  <div id="listProduct">
-    <div class="container">
-        <table width="100%" id="tableContainer">
-            <tr class="tdListProduct">
-              <td class="tdListProduct">
-                <div class="row">
-                  <%for(var i = 0;i<page.length;i++){%>
-                  <div class="card col-6 col-lg-4 element-parent" >
-                  <div class="card-body cardContainer">
-                    <table>
-                      <!-- id -->
-                      <tr>
-                        <td>
-                          <h5 class="card-title">ID:</h5> 
-                        </td>
-                        <td>
-                          <h5 class="card-title"><span class=""><%= page[i].id%></span></h5> 
-                        </td>
-                      </tr>
-                      <!-- username -->
-                      <tr>
-                          <td>
-                            <h5 class="card-title">Name:</h5> 
-                          </td>
-                          <td>
-                            <h5 class="card-title"><span class="elementProduct"><%= page[i].username %></span>
-                              <span class="ip-element">
-                                <input type="text" class="ip-element-username">
-                              </span>
-                            </h5>
-                          </td>
-                        </tr>
-                        <!-- password -->
-                        <tr>
-                          <td>
-                            <h5 class="card-title">Password:</h5> 
-                          </td>
-                          <td>
-                            <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].password %></span>
-                              <span class="ip-element">
-                                <input type="text" class="ip-element-password">
-                              </span>
-                            </h5>
-                          </td>
-                        </tr>
-                        <!-- email -->
-                        <tr>
-                          <td>
-                            <h5 class="card-title">Email:</h5> 
-                          </td>
-                          <td>
-                          <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].email %></span>
-                              <span class="ip-element">
-                                <input type="text" class="ip-element-email">
-                              </span>
-                            </h5>
-                          </td>
-                        </tr>
-                        <!-- type -->
-                        <tr>
-                          <td>
-                            <h5 class="card-title">Type:</h5> 
-                          </td>
-                          <td>
-                          <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].type %></span>
-                              <span class="ip-element">
-                                <input type="text" class="ip-element-type">
-                              </span>
-                            </h5> 
-                          </td>
-                        </tr>
-                    </table>
-                    <button class="btn btn-warning my-2 my-sm-0 edit" type="button">Edit</button>
-                    <button class="btn btn-danger my-2 my-sm-0 save" type="button">Save</button>
-                    <button class="btn btn-danger my-2 my-sm-0 delete" type="button">Delete</button>
-                  </div>                         
-                </div>
-                <%} %>
-              </div>
-            </td>
-          </tr>
-          <tr class="trButtonProduct">
-            <td class="tdButtonProduct">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <%for(var i = 1;i<=numberPage;i++){%>
-                    <li class="page-item" val="<%=i%>"><a class="page-link" href="#"><%=i%></a></li>
-                  <%}%>
-                </ul>
-              </nav>
-            </td>
-          </tr>
-      </table>
+  <div class="container">
+    <div class="row" id="listContent">
+      <%for(var i = 0;i<page.length;i++){%>
+      <div class="card col-6 col-lg-4 element-parent" >
+        <div class="card-body cardContainer">
+          <table>
+            <!-- id -->
+            <tr>
+              <td>
+                <h5 class="card-title">ID:</h5> 
+              </td>
+              <td>
+                <h5 class="card-title"><span class=""><%= page[i].id%></span></h5> 
+              </td>
+            </tr>
+            <!-- username -->
+            <tr>
+              <td>
+                <h5 class="card-title">Name:</h5> 
+              </td>
+              <td>
+                <h5 class="card-title"><span class="elementProduct"><%= page[i].username %></span>
+                  <span class="ip-element">
+                    <input type="text" class="ip-element-username">
+                  </span>
+                </h5>
+              </td>
+            </tr>
+            <!-- password -->
+            <tr>
+              <td>
+                <h5 class="card-title">Password:</h5> 
+              </td>
+              <td>
+                <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].password %></span>
+                  <span class="ip-element">
+                    <input type="text" class="ip-element-password">
+                  </span>
+                </h5>
+              </td>
+            </tr>
+            <!-- email -->
+            <tr>
+              <td>
+                <h5 class="card-title">Email:</h5> 
+              </td>
+              <td>
+                <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].email %></span>
+                  <span class="ip-element">
+                    <input type="text" class="ip-element-email">
+                  </span>
+                </h5>
+              </td>
+            </tr>
+            <!-- type -->
+            <tr>
+              <td>
+                <h5 class="card-title">Type:</h5> 
+              </td>
+              <td>
+                <h5 class="card-title elementGuest"><span class="elementProduct"><%= page[i].type %></span>
+                  <span class="ip-element">
+                    <input type="text" class="ip-element-type">
+                  </span>
+                </h5> 
+              </td>
+            </tr>
+          </table>
+          <button class="btn btn-warning my-2 my-sm-0 edit" type="button">Edit</button>
+          <button class="btn btn-danger my-2 my-sm-0 save" type="button">Save</button>
+          <button class="btn btn-danger my-2 my-sm-0 delete" type="button">Delete</button>
+        </div>                         
+      </div>
+      <%} %>
     </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <%for(var i = 1;i<=numberPage;i++){%>
+        <li class="page-item" val="<%=i%>"><a class="page-link"><%=i%></a></li>
+        <%}%>
+      </ul>
+    </nav>
   </div>
 </body>
 <script src="/js/home.js"></script>

@@ -6,7 +6,6 @@ const session = require("express-session");
 const jwt = require("jsonwebtoken");
 var fs = require("fs");
 var check = require("../serviece/authenService");
-var cookieParser = require("cookie-parser");
 var pageService = require("../serviece/pageService")
 var productService= require("../serviece/productService")
 //session config
@@ -39,7 +38,7 @@ router.post("/login", async function(req, res, next) {
 });
 //trang home
 router.get("/home", async function(req, res, next) {
-  var page = await pageService.pageAllAdmin(1);
+  var page = await pageService.pageAllAdmin(1)
   var listProduct = await productService.getAll();
   var numberPage = parseInt(listProduct.length/6)+1;
   res.render("../views/home.ejs", { IDName: req.session.user,page:page,numberPage:numberPage});

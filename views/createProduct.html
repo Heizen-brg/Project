@@ -15,7 +15,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="/stylesheets/formProuduct.css">
 </head>
-
 <body>
     <div id="id01" class="modal">
         <form class="modal-content animate">
@@ -32,11 +31,26 @@
                     <option value="2">2</option>
                     <option value="3">3</option>
                 </select>
-                <a id="btn"><button type="button">Create</button></a>
+            <button type="button"  id="btn">Create</button>
             </div>
         </form>
     </div>
-    <script src="/js/createProduct.js">
+    <script>
+        $("#btn").click(function() {
+        $.ajax({
+            url: "/api/product",
+            type: "post",
+            data: {
+                username: $("#username").val(),
+                password: $("#password").val(),
+                email: $("#email").val(),
+                type: parseInt($("#type").val())
+            }
+        }).then(function(response) {
+            alert("Them thanh cong")
+            window.location.href = "/home";
+            });
+        });
     </script>
 </body>
 </html>

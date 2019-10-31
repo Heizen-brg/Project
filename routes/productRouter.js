@@ -22,14 +22,15 @@ router.get("/:username",authen.authen, async function(req,res,next){
       res.json(result);
   }
 });
-//get create
+// create
 router.post("/",authen.authen,async function(req,res,next){
+Console.log('ad')
     var id = parseInt(Date.now() / 10000);
     var username = req.body.username;
     var email = req.body.email;
-    var password =req.body.password;
+    var password = req.body.password;
     var type = req.body.type;
-    var result = await productService.createProduct(id,type,username,email,password);
+    var result = await productService.createProduct(id,username,password,email,type);
     res.json(result);
 });
 //  update
@@ -39,7 +40,7 @@ router.put("/",authen.authen, async function(req,res,next){
     var password = req.body.password;
     var email = req.body.email;
     var type = req.body.type;
-   await productService.updateProduct(id,type,username,password,email);
+   await productService.updateProduct(id, username, password, email, type);
   var result = await productService.updateProduct(id);
     res.json(result);
 })

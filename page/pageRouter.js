@@ -3,6 +3,7 @@ var router = express.Router();
 var authen = require("../routes/authen");
 var pageService = require("../serviece/pageService");
 var productService = require("../serviece/productService")
+
 router.get("/page/:number",authen.authen, async function(req, res, next) {
   var listProductItem = await productService.getAll();
   if (res.locals.type== 1) {

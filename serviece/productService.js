@@ -1,11 +1,11 @@
-var {User,Sequelize} = require("../lib/dbconnect");
+var { User, Sequelize } = require("../lib/dbconnect");
 const Op = Sequelize.Op;
 
-//get ful
+//get full
 function getAll() {
   return User.findAll({ raw: true });
 }
-//get id guest
+//get user guest
 function getUserProductGuest(username) {
   return User.findAll({
     attributes: ["id", "username"],
@@ -16,7 +16,7 @@ function getUserProductGuest(username) {
     raw: true
   });
 }
-//get id Admin
+//get user Admin
 function getUserProductAdmin(username) {
   return User.findAll({
     where: {
@@ -35,14 +35,14 @@ function getUserProductManger(username) {
   });
 }
 //create
-function createProduct(id, type, username,email, password) {
+function createProduct(id, username, password, email, type) {
   return User.create(
     {
       id: id,
-      type: type,
       username: username,
+      password: password,
       email: email,
-      password: password
+      type: type
     },
     {
       raw: true
@@ -50,13 +50,13 @@ function createProduct(id, type, username,email, password) {
   );
 }
 //update
-function updateProduct(id, type, username, password,email) {
+function updateProduct(id, username, password, email, type) {
   return User.update(
     {
-      type: type,
       username: username,
       password: password,
-      email:email
+      email: email,
+      type: type
     },
     {
       where: {
