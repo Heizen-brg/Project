@@ -12,6 +12,7 @@ const jwt = require("jsonwebtoken");
 var productRouter = require('./routes/productRouter');
 var pageRouter = require('./page/pageRouter')
 const passport    = require('passport');
+var fs = require('fs');
 require('./routes/passport');
 
 app.use(session({
@@ -36,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/',indexRouter.router);
 app.use('/users', usersRouter);
 //RESTful API produduct
-app.use('/api/product',passport.authenticate('jwt', {session: false}),productRouter)
+app.use('/api/product',productRouter)
 app.use("/", pageRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,7 +51,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.sendFile(path.join(__dirname,'./views/error.html'))
 });
 
 module.exports = app;

@@ -20,7 +20,7 @@ router.use(session({
 );
 
 router.use(cookieParser())
-var check = require("../serviece/authenService");
+var check = require("./checkToken");
 //config body-parser
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -62,17 +62,8 @@ router.post('/login', function (req, res, next) {
 });
 
 //trang home
-router.get("/home", function(req, res, next){
-  jwt.verify(req.cookies.token, 'your_jwt_secret', function(err, decoded) {
-    if(!err){
-      next()
-    }else{
-     res.redirect('/login')
-    }
-  });
-  
-  
-}, async function(req, res, next) {
+router.get("/home",check , async function(req, res, next) {
+  // console.log(req.type)
   var page = await pageService.pageAllAdmin(1);
   var listProduct = await productService.getAll();
   var numberPage = parseInt(listProduct.length/6)+1;
@@ -80,19 +71,17 @@ router.get("/home", function(req, res, next){
 });
 //trang create product
 router.get("/create", function(req, res, next) {
+  console.log('///////////////',req.type)
   res.sendFile(path.join(__dirname, "../views/createProduct.html"));
 });
 
 ///logout button
-router.post('/home',function (req,res,next) { 
-  req.session.destroy(function (err) {
-    if (err) {
-      return next(err)
-    }else {
-      res.redirect("/login")
-    }
-  })
-})
+router.post("/home", async (req, res) => {
+  await req.logout();
+  req.session = null;
+  await res.clearCookie('token');
+  return res.redirect("/login");
+});
 //trang sign-in
 router.get("/sign-in",function(req,res,next){
   res.sendFile(path.join(__dirname, "../views/signIn.html"));
