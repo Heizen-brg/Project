@@ -5,6 +5,7 @@ var pageService = require("../serviece/pageService");
 var productService = require("../serviece/productService")
 var check = require("../routes/checkToken");
 router.get("/page/:number",check ,async function(req, res, next) {
+  console.log('/////////////////////',req.type)
   var listProductItem = await productService.getAll();
   if (req.type== 1) {
     var numberPage = parseInt(req.params.number);

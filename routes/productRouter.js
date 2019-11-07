@@ -12,7 +12,7 @@ router.get("/",authen.authen,async function(req,res,next){
 });
 //get username
 router.get("/:username",check,async function(req,res,next){
-  console.log(req.type);
+  console.log('/////////////////////////++++++++++++',req.type);
   if (req.type == 1) {
       var username = req.params.username;
       var result = await productService.getUserProductAdmin(username);
@@ -34,7 +34,7 @@ router.post("/",async function(req,res,next){
     var email = req.body.email;
     var password =req.body.password;
     var type = req.body.type;
-    var result = await productService.createProduct(id,type,username,email,password);
+    var result = await productService.createProduct(id,username,password,email,type);
     res.json(result);
 });
 //  update
@@ -44,7 +44,7 @@ router.put("/", async function(req,res,next){
     var password = req.body.password;
     var email = req.body.email;
     var type = req.body.type;
-   await productService.updateProduct(id,type,username,password,email);
+   await productService.updateProduct(id,username,password,email,type);
   var result = await productService.updateProduct(id);
     res.json(result);
 })
