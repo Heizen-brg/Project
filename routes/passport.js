@@ -2,9 +2,7 @@ var {User,Sequelize} = require("../lib/dbconnect");
 const Op = Sequelize.Op;
 const passport    = require('passport');
 const passportJWT = require("passport-jwt");
-
 const ExtractJWT = passportJWT.ExtractJwt;
-
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy   = passportJWT.Strategy;
 
@@ -13,7 +11,7 @@ passport.use(new LocalStrategy({
         passwordField: 'password'
     },
     function (email, password, cb) {
-
+        console.log('??')
         //Assume there is a DB module pproviding a global User
         return User.findOne({
           where: {

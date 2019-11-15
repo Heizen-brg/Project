@@ -41,6 +41,7 @@ router.get("/login", function(req, res, next) {
 //   }
 // });
 router.post('/login', function (req, res, next) {
+  console.log('xxx')
   passport.authenticate('local', {session: false}, (err, user, info) => {
       console.log(err);
       if (err || !user) {
@@ -70,8 +71,7 @@ router.get("/home",check , async function(req, res, next) {
   res.render("../views/home.ejs", { IDName: req.session.user,page:page,numberPage:numberPage});
 });
 //trang create product
-router.get("/create", function(req, res, next) {
-  console.log('///////////////',req.type)
+router.get("/create" ,function(req, res, next) {
   res.sendFile(path.join(__dirname, "../views/createProduct.html"));
 });
 

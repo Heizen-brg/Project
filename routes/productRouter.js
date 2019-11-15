@@ -6,7 +6,7 @@ var check = require("./checkToken");
 const passport    = require('passport');
 require('../routes/passport');
 
-router.get("/",authen.authen,async function(req,res,next){
+router.get("/",check,async function(req,res,next){
   var result = await productService.getAll();
   res.json(result);
 });
